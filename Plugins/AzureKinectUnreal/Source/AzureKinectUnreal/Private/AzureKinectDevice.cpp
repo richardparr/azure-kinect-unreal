@@ -30,7 +30,7 @@ AzureKinectDevice::~AzureKinectDevice()
 	Shutdown();
 }
 
-bool AzureKinectDevice::Initialize(k4a_depth_mode_t DepthMode)
+bool AzureKinectDevice::Initialize(k4a_depth_mode_t DepthMode, k4a_wired_sync_mode_t WiredSyncMode, int32_t DepthDelayOffColorUsec)
 {
 	try
 	{
@@ -40,7 +40,9 @@ bool AzureKinectDevice::Initialize(k4a_depth_mode_t DepthMode)
 		// Start the Camera and make sure the Depth Camera is Enabled
 		k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
 		deviceConfig.depth_mode = DepthMode;
-		deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
+		deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_720P;
+		deviceConfig.wired_sync_mode = WiredSyncMode;
+		deviceConfig.depth_delay_off_color_usec = DepthDelayOffColorUsec;
 
 		NativeKinectDevice.start_cameras(&deviceConfig);
 

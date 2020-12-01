@@ -2,6 +2,8 @@
 
 #include "AzureKinectHelper.generated.h"
 
+
+
 /**
  * Blueprintable enum defined based on k4a_depth_mode_t from k4atypes.h
  *
@@ -61,6 +63,19 @@ enum class EKinectBodyJointId : uint8
 	COUNT           UMETA(DisplayName = "COUNT", Hidden),
 };
 
+
+/**
+ * Blueprintable enum defined based on k4a_wired_sync_mode_t from k4atypes.h
+ *
+ * @note This should always have the same enum values as k4a_wired_sync_mode_t
+ */
+UENUM(BlueprintType, Category = "Azure Kinect|Enums")
+enum class EKinectWiredSyncMode : uint8
+{
+	STANDALONE = 0  UMETA(DisplayName = "Standalone"),   /**< Neither 'Sync In' or 'Sync Out' connections are used. */
+	MASTER			UMETA(DisplayName = "Master"),       /**< The 'Sync Out' jack is enabled and synchronization data it driven out the connected wire.  While in master mode the color camera must be enabled as part of the multi device sync signalling logic. Even if the color image is not needed, the color camera must be running. */
+	SUBORDINATE		UMETA(DisplayName = "Subordinate"),  /**< The 'Sync In' jack is used for synchronization and 'Sync Out' is driven for the next device in the chain.  'Sync Out' is a mirror of 'Sync In' for this mode.*/
+};
 
 // TODO : Find out how many bodies can be tracked with one Sensor
 /**

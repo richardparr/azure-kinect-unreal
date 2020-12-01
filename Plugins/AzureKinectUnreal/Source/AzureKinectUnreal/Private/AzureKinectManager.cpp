@@ -19,7 +19,7 @@ UAzureKinectManager::~UAzureKinectManager()
 	Instance = nullptr;
 }
 
-void UAzureKinectManager::InitDevice(int32 DeviceId, EKinectDepthMode DepthMode, int32 TimeOutInMilliSecs)
+void UAzureKinectManager::InitDevice(int32 DeviceId, EKinectDepthMode DepthMode, int32 TimeOutInMilliSecs, EKinectWiredSyncMode WiredSyncMode, int32_t MultiCameraDelayMicroseconds)
 {
 	if (!Instance)
 	{
@@ -40,7 +40,7 @@ void UAzureKinectManager::InitDevice(int32 DeviceId, EKinectDepthMode DepthMode,
 	}
 
 	AzureKinectDevice *KinectDevice = new AzureKinectDevice(DeviceId, TimeOutInMilliSecs);
-	bool bIsInitialized = KinectDevice->Initialize((k4a_depth_mode_t)DepthMode);
+	bool bIsInitialized = KinectDevice->Initialize((k4a_depth_mode_t)DepthMode, (k4a_wired_sync_mode_t)WiredSyncMode, MultiCameraDelayMicroseconds);
 
 	if (bIsInitialized)
 	{
