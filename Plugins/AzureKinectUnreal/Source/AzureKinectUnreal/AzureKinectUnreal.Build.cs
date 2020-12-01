@@ -10,8 +10,9 @@ public class AzureKinectUnreal : ModuleRules
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
 		bEnableExceptions = true;
+        bLegacyPublicIncludePaths = false;
 
-		PublicIncludePaths.AddRange(
+        PublicIncludePaths.AddRange(
 			new string[] {
 				// ... add public include paths required here ...
 				Path.Combine(ModuleDirectory, "Public")

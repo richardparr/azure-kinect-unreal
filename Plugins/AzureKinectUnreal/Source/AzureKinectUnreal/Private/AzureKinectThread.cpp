@@ -7,7 +7,7 @@
 
 DEFINE_LOG_CATEGORY(AzureKinectThreadLog);
 
-FAzureKinectThread *FAzureKinectThread::Instance = nullptr;
+TArray<FAzureKinectThread *> FAzureKinectThread::Instances;
 
 FAzureKinectThread::FAzureKinectThread(AzureKinectDevice *Device) :
 	KinectThread(nullptr),
@@ -34,20 +34,32 @@ FAzureKinectThread * FAzureKinectThread::InitPolling(AzureKinectDevice *Device)
 {
 	// Create new instance of thread if it does not exist
 	// and the platform supports multi threading!
-	if (!Instance && FPlatformProcess::SupportsMultithreading())
+
+	for (auto Instance : Instances)
 	{
-		Instance = new FAzureKinectThread(Device);
+		if (Instance->KinectDevice == Device)
+		{
+			return Instance;
+		}
 	}
+
+	auto Instance = new FAzureKinectThread(Device);
+	Instances.Add(Instance);
+
 	return Instance;
 }
 
-void FAzureKinectThread::Shutdown()
+void FAzureKinectThread::Shutdown(AzureKinectDevice *Device)
 {
-	if (Instance)
+	for (auto Instance : Instances)
 	{
-		Instance->EnsureCompletion();
-		delete Instance;
-		Instance = nullptr;
+		if (Instance->KinectDevice == Device)
+		{
+			Instance->EnsureCompletion();
+			Instances.Remove(Instance);
+			delete Instance;
+			return;
+		}
 	}
 }
 
@@ -57,6 +69,7 @@ void FAzureKinectThread::EnsureCompletion()
 	if (KinectThread)
 	{
 		KinectThread->WaitForCompletion();
+		KinectThread = nullptr;
 	}
 }
 

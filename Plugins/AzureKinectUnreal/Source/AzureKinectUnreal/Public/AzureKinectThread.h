@@ -31,8 +31,8 @@ public:
 	/** Initializes the thread with the given Device. */
 	static FAzureKinectThread *InitPolling(AzureKinectDevice *Device);
 
-	/** Completes the execution of the thread and deletes the singleton instance. */
-	static void Shutdown();
+	/** Completes the execution of the thread */
+	static void Shutdown(AzureKinectDevice *Device);
 	
 	/** Stops the thread and waits for its completion. */
 	void EnsureCompletion();
@@ -44,8 +44,8 @@ public:
 	// End FRunnable interface
 
 private:
-	/** A singleton instance. */
-	static FAzureKinectThread *Instance;
+	/** A singleton instance array. */
+	static TArray<FAzureKinectThread *> Instances;
 
 	/** Thread to run this Runnable object. */
 	FRunnableThread *KinectThread;

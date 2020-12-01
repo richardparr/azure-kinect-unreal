@@ -73,7 +73,7 @@ void AzureKinectDevice::Shutdown()
 
 	if (Thread)
 	{
-		Thread->Shutdown();
+		Thread->Shutdown(this);
 		Thread = nullptr;
 	}
 
