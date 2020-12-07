@@ -44,6 +44,15 @@ public:
 	/** Returns an array of the tracked bodies by this device. */
 	TArray<UAzureKinectBody*> GetBodies() const;
 
+	/** Returns latest accelerometer reading for this device. */
+	FVector GetAccelerometer() const;
+
+	/** Returns latest gyroscope reading for this device. */
+	FVector GetGyroscope() const;
+
+	/** Returns latest temperature reading for this device. */
+	float GetTemperature() const;
+
 	/** Whether this device is initialized or not. */
 	bool IsInitialized() const;
 
@@ -60,6 +69,12 @@ private:
 	int32 TimeOutInMilliSecs;
 	/** TimeOutInMilliSecs converted to std::chrono::milliseconds */
 	std::chrono::milliseconds TimeOutInMilliSecsConverted;
+	/** Accelerometer value */
+	FVector Accelerometer;
+	/** Gyroscope value */
+	FVector Gyroscope;
+	/** Temperature */
+	float Temperature;
 
 	/** A pointer to the thread that does the body capturing. */
 	FAzureKinectThread *Thread;

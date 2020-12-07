@@ -141,3 +141,39 @@ void UAzureKinectManager::ToggleDeviceLogging(int32 DeviceId, bool ShouldShowLog
 		Device->ToggleShowLogsAndOnScreenMsgs(ShouldShowLogs, ShouldShowOnScreenMsgs);
 	}
 }
+
+FVector UAzureKinectManager::GetAccelerometer(int32 DeviceId)
+{
+	AzureKinectDevice* Device = GetDevice(DeviceId);
+	if (!Device)
+	{
+		UE_LOG(AzureKinectLog, Warning, TEXT("Returning zero for accelerometer"));
+		return FVector(0.0f);
+	}
+
+	return Device->GetAccelerometer();
+}
+
+FVector UAzureKinectManager::GetGyroscope(int32 DeviceId)
+{
+	AzureKinectDevice* Device = GetDevice(DeviceId);
+	if (!Device)
+	{
+		UE_LOG(AzureKinectLog, Warning, TEXT("Returning zero for gyroscope"));
+		return FVector(0.0f);
+	}
+
+	return Device->GetGyroscope();
+}
+
+float UAzureKinectManager::GetTemperature(int32 DeviceId)
+{
+	AzureKinectDevice* Device = GetDevice(DeviceId);
+	if (!Device)
+	{
+		UE_LOG(AzureKinectLog, Warning, TEXT("Returning zero for temperature"));
+		return 0.0f;
+	}
+
+	return Device->GetTemperature();
+}

@@ -59,6 +59,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Azure Kinect", meta = (DisplayName = "Toggle Kinect Device Logging"))
 	static void ToggleDeviceLogging(int32 DeviceId, bool ShouldShowLogs, bool ShouldShowOnScreenMsgs);
 
+	UFUNCTION(BlueprintCallable, Category = "Azure Kinect", meta = (DisplayName = "Get Kinect Accelerometer Reading"))
+	static FVector GetAccelerometer(int32 DeviceId);
+
+	UFUNCTION(BlueprintCallable, Category = "Azure Kinect", meta = (DisplayName = "Get Kinect Gyroscope Reading"))
+	static FVector GetGyroscope(int32 DeviceId);
+
+	UFUNCTION(BlueprintCallable, Category = "Azure Kinect", meta = (DisplayName = "Get Kinect Temperature Reading"))
+	static float GetTemperature(int32 DeviceId);
+
 private:
 	/** A singleton instance. */
 	static UAzureKinectManager *Instance;

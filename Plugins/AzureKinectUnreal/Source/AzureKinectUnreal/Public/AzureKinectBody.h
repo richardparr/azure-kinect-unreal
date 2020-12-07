@@ -28,7 +28,7 @@ struct FAzureKinectJoint
 	FRotator Orientation;
 
 	UPROPERTY(BlueprintReadWrite, Category = "Azure Kinect|Body|Joints")
-	float PositionMultiplier = 0.5f;
+	float PositionMultiplier = 0.1f;  // Kinect SDK is in mm, Unreal is cm.
 
 	/** The index of the joint that corresponds to the integral value of the joint enum. */
 	UPROPERTY(BlueprintReadOnly, Category = "Azure Kinect|Body|Joints")
